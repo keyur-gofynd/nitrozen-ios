@@ -89,6 +89,7 @@ public struct NitrozenTextField: View {
     public var body: some View {
         VStack(spacing: 0) {
             infoView()
+                .zIndex(2.0)
             textField()
                 .focused($focused)
             errorView()
