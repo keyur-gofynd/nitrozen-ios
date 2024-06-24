@@ -48,7 +48,7 @@ public struct NitrozenToggleStyle: ToggleStyle {
 				}
 			}
 			.frame(width: appearance.size.width, height: appearance.size.height)
-			.animation(.easeInOut(duration: 0.16))
+            .animation(.easeInOut(duration: 0.16), value: configuration.isOn)
 			.onTapGesture { configuration.isOn.toggle() }
 		}
 	}
