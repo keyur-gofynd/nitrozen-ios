@@ -8,6 +8,7 @@
 import SwiftUI
 
 //MARK: NitrozenSegmentControl
+@available(iOS 14.0, *)
 public struct NitrozenSegmentControl<Element>: View where Element: NitrozenElementStringSelectableStyle & Hashable & Identifiable {
 	
 	public enum SegmentSelectionStyle {
@@ -37,6 +38,7 @@ public struct NitrozenSegmentControl<Element>: View where Element: NitrozenEleme
 	var selectionStyle: SegmentSelectionStyle
 	var appearance: NitrozenAppearance.Segment
 	var itemBuilder: ((Element, Bool) -> any View)?
+    @State var scrollViewReader: ScrollViewProxy?
 	
     public enum UserInteractionBehaviour {
         case scrollable(padding: EdgeInsets)
@@ -117,6 +119,7 @@ public struct NitrozenSegmentControl<Element>: View where Element: NitrozenEleme
     
     func updateCurrentSelectedIndex(){
         self.currentSelectedIndex = self.selectionIndex
+        self.scrollViewReader?.scrollTo(self.options[currentSelectedIndex])
     }
     
     @ViewBuilder func bodyWithoutModifieres() -> some View {
@@ -130,18 +133,13 @@ public struct NitrozenSegmentControl<Element>: View where Element: NitrozenEleme
                 
                 
                 if self.userInteractionBehaviour.isScrollableEnabled {
-                    if #available(iOS 14.0, *) {
-                        ScrollViewReader { scrollViewReader in
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                itemList(scrollViewReader: scrollViewReader)
-                                    .padding(self.userInteractionBehaviour.viewPadding)
-                            }
-                            
-                        }
-                    } else { // Fallback on earlier versions
+                    ScrollViewReader { scrollViewReader in
                         ScrollView(.horizontal, showsIndicators: false) {
-                            itemList()
+                            itemList(scrollViewReader: scrollViewReader)
                                 .padding(self.userInteractionBehaviour.viewPadding)
+                        }
+                        .onAppear {
+                            self.scrollViewReader = scrollViewReader
                         }
                     }
                     
@@ -249,6 +247,7 @@ public struct NitrozenSegmentControl<Element>: View where Element: NitrozenEleme
 
 
 //iOS14 and iOS13 conditional suppoort
+@available(iOS 14.0, *)
 extension NitrozenSegmentControl {
 	@available(iOS 14.0, *)
 	@ViewBuilder

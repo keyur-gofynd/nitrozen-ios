@@ -29,7 +29,7 @@ struct SegmentControlViews: View {
 	@State var selection7: String = "Activity"
 	
 	var options8: [String] = ["Apple", "Banana", "Milk", "Pineapple", "Orange", "Green Apple", "Grapes"]
-	@State var selection8: String = "Banana"
+	@State var selection8: String = "Grapes"
 	
 	var body: some View {
 		List{
