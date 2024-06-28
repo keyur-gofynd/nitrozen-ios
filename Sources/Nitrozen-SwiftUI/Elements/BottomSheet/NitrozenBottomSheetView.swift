@@ -41,7 +41,7 @@ public struct NitrozenBottomSheetView: View {
                     .edgesIgnoringSafeArea(.all)
                     .onTapGesture {
                         if !restrictBackgroundInteraction {
-                            isPresented.toggle()
+                            isPresented = false
                         }
                     }
             }
