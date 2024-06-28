@@ -106,7 +106,8 @@ public struct NitrozenPageControl: View {
                         })
             .foregroundColor(self.appearance.selectedColor)
             .apply(shape: self.appearance.selectedViewShape, color: self.appearance.selectedBorderColor, lineWidth: self.appearance.selectedBorderWidth)
-			.animation(.easeInOut(duration: 0.16))
+			//.animation(.easeInOut(duration: 0.16))
+            .animation(nil)
             .zIndex(10)
     }
     
